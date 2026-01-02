@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lens and Latitude | Malaysia Expedition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            letter-spacing: -0.01em; 
+            background-color: #0a0c10;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .grain {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.03; pointer-events: none; z-index: 50;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.3); border-radius: 10px; }
+        
+        .selection\:bg-amber-300 ::selection { background-color: #fcd34d; color: black; }
+
+        .day-button.active {
+            background-color: #fbbf24;
+            border-color: #fbbf24;
+            color: black;
+            transform: translateX(4px);
+            box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.2);
+        }
+
+        .nav-link {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { color: #fbbf24; }
+    </style>
+</head>
+<body class="selection:bg-amber-300">
+    <div class="grain"></div>
+
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
+        <nav class="max-w-7xl mx-auto flex items-center justify-between bg-black/40 backdrop-blur-md border border-white/5 rounded-2xl px-6 py-3">
+            <div class="flex items-center gap-4">
+                <div class="bg-amber-400 text-black font-black text-xs h-8 w-8 flex items-center justify-center rounded-lg shadow-lg">KS</div>
+                <div>
+                    <h2 class="text-white font-bold text-[10px] tracking-[0.2em] uppercase leading-none">Lens & Latitude</h2>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="nav-link text-amber-400">Hero</a>
+                <a href="#itinerary" class="nav-link">Itinerary</a>
+                <a href="#directory" class="nav-link">Stay & Food</a>
+                <a href="#ledger" class="nav-link">Ledger</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="https://www.instagram.com/mr.khilesh__/" target="_blank" class="text-white/50 hover:text-amber-400 transition-colors">
+                    <i data-lucide="instagram" size="18"></i>
+                </a>
+                <a href="https://www.youtube.com/c/KhileshSammalVlogs2125" target="_blank" class="text-white/50 hover:text-amber-400 transition-colors">
+                    <i data-lucide="youtube" size="18"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1596422846543-75c6fc18a5ce?auto=format&fit=crop&q=80&w=2000" 
+                alt="Malaysia Expedition" 
+                class="w-full h-full object-cover brightness-[0.25]"
+            />
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0c10]/50 to-[#0a0c10]"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-6 max-w-5xl">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div class="h-[1px] w-12 bg-amber-400/30"></div>
+                <span class="text-[11px] font-bold tracking-[0.5em] uppercase text-amber-400">July 18 – 25, 2025</span>
+                <div class="h-[1px] w-12 bg-amber-400/30"></div>
+            </div>
+            
+            <h1 class="text-7xl md:text-9xl font-bold text-white mb-6 tracking-tight italic">
+                Malaysian <br/> <span class="text-amber-50 font-normal not-italic">Expedition</span>
+            </h1>
+            
+            <div class="flex flex-wrap justify-center gap-12 mt-12">
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400/60 uppercase tracking-widest block mb-2">Total Budget</span>
+                    <span class="text-2xl font-light text-white italic">₹90,000</span>
+                </div>
+                <div class="w-[1px] h-12 bg-white/10 hidden md:block"></div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400/60 uppercase tracking-widest block mb-2">Currency</span>
+                    <span class="text-2xl font-light text-white italic">1,950 MYR</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-10 relative z-20">
+        
+        <!-- Itinerary Navigator -->
+        <section id="itinerary" class="mb-40 pt-20">
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Sidebar Navigation -->
+                <div class="lg:col-span-4 space-y-3 lg:sticky lg:top-28">
+                    <div class="mb-8">
+                        <h2 class="text-4xl italic mb-2">The Journey</h2>
+                        <p class="text-slate-500 text-sm font-medium">8 Days of Exploration</p>
+                    </div>
+                    <div id="day-nav-container" class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar pr-3">
+                        <!-- Navigation Buttons injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Content Panel -->
+                <div class="lg:col-span-8">
+                    <div id="itinerary-panel" class="glass-panel p-8 md:p-14 rounded-[2.5rem] min-h-[580px] flex flex-col justify-between">
+                        <!-- Content injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Directory Section -->
+        <section id="directory" class="mb-40 pt-10">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="text-5xl italic">Directory</h2>
+                <div class="h-[1px] flex-grow bg-white/10"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Hotels -->
+                <div class="glass-panel p-10 rounded-[2.5rem]">
+                    <div class="flex items-center gap-3 mb-10 text-amber-400">
+                        <i data-lucide="building" size="20"></i>
+                        <h3 class="text-xs font-bold uppercase tracking-[0.3em]">Accommodations</h3>
+                    </div>
+                    <div class="space-y-8" id="hotels-container"></div>
+                </div>
+
+                <!-- Restaurants -->
+                <div class="glass-panel p-10 rounded-[2.5rem]">
+                    <div class="flex items-center gap-3 mb-10 text-amber-400">
+                        <i data-lucide="utensils-crossed" size="20"></i>
+                        <h3 class="text-xs font-bold uppercase tracking-[0.3em]">Cuisine & Dining</h3>
+                    </div>
+                    <div class="space-y-8" id="restaurants-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Section -->
+        <section id="ledger" class="mb-40 pt-10">
+            <div class="relative glass-panel rounded-[3rem] p-8 md:p-16 overflow-hidden">
+                <div class="relative z-10 grid lg:grid-cols-2 gap-20">
+                    <div>
+                        <h2 class="text-6xl mb-8 italic">The Ledger</h2>
+                        <p class="text-slate-400 font-light leading-relaxed mb-12 text-lg">
+                            A grand total of <span class="text-white font-medium">₹90,000</span> distributed across travel essentials and local luxuries.
+                        </p>
+                        
+                        <div class="space-y-8" id="categories-container"></div>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div class="bg-white/[0.03] rounded-[2.5rem] p-10 border border-white/5">
+                            <div class="flex items-center justify-between mb-10">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="receipt" size="20" class="text-amber-400"></i>
+                                    <h4 class="text-xs uppercase tracking-[0.3em] font-bold">Expenses on Ground</h4>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-tighter mb-1">Spent to Date</span>
+                                    <span class="text-lg font-bold text-amber-400">1,750 MYR</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6 max-h-[380px] overflow-y-auto pr-4 custom-scrollbar" id="log-entries-container"></div>
+                            
+                            <div class="mt-10 pt-8 border-t border-white/10 flex justify-between items-center">
+                                <div>
+                                    <p class="text-amber-400/60 text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Remaining Cash</p>
+                                    <p class="text-4xl font-light italic text-white tracking-tighter">200 <span class="text-xl text-slate-500 not-italic uppercase font-bold ml-1">MYR</span></p>
+                                </div>
+                                <div class="h-16 w-16 rounded-full border border-emerald-500/20 flex items-center justify-center relative">
+                                    <div class="absolute inset-0 bg-emerald-500/5 animate-pulse rounded-full"></div>
+                                    <span class="text-emerald-400 font-bold text-[10px] uppercase">Safe</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Social Handles Footer -->
+    <footer id="contact" class="bg-white/[0.01] border-t border-white/5 pt-32 pb-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-20 items-end mb-24">
+                <div>
+                    <h2 class="text-7xl font-bold text-white italic mb-10">Social <br/><span class="text-amber-400 not-italic">Handles</span></h2>
+                    <h3 class="text-2xl font-light text-white/90 mb-4">Stay connected with Khilesh</h3>
+                    <p class="text-slate-400 leading-relaxed max-w-lg mb-10">
+                        Follow ride updates, reels and full vlogs from this Uttarakhand scooty journey across Instagram and YouTube.
+                    </p>
+                </div>
+                
+                <div class="space-y-6">
+                    <p class="text-[10px] font-bold tracking-[0.4em] uppercase text-amber-400/50 mb-8">Where to follow the journey</p>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-10">
+                        Use these links to see fresh content from upcoming rides, behind‑the‑scenes from this itinerary and future Himalayan loops.
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <a href="https://www.instagram.com/mr.khilesh__/" target="_blank" class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-amber-400/30 transition-all group">
+                            <div class="bg-gradient-to-tr from-amber-400 to-amber-200 p-3 rounded-xl text-black">
+                                <i data-lucide="instagram" size="20"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-amber-400 transition-colors">Instagram</span>
+                                <span class="block text-white font-medium text-sm">@mr.khilesh__</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.youtube.com/c/KhileshSammalVlogs2125" target="_blank" class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-amber-400/30 transition-all group">
+                            <div class="bg-gradient-to-tr from-red-500 to-red-400 p-3 rounded-xl text-white">
+                                <i data-lucide="youtube" size="20"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-red-400 transition-colors">YouTube</span>
+                                <span class="block text-white font-medium text-sm">Khilesh Sammal Vlogs</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/5 p-2 rounded-lg"><i data-lucide="compass" class="text-amber-400" size="16"></i></div>
+                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">Lens & Latitude — Malaysia 2025</span>
+                </div>
+                <div class="text-[10px] font-bold tracking-[0.3em] uppercase text-white/20">
+                    © 2025 KHILESH SAMMAL. ALL RIGHTS RESERVED.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const itineraryData = [
+            { day: 1, date: "Friday, July 18", city: "Delhi to Kolkata", theme: "The Transit", morning: "07:30 AM Reach IGI Airport, Delhi. 09:00 AM Depart DEL → CCU.", afternoon: "Arrive in Kolkata at 11:00 AM. Transit rest & explore the city.", evening: "11:00 PM Depart CCU → KUL (AirAsia). The official adventure begins!" },
+            { day: 2, date: "Saturday, July 19", city: "Kuala Lumpur", theme: "Urban Immersion", morning: "05:00 AM Arrive KUL. Cab to Ramada Encore Chinatown. Early bag drop-off and explore city nearby KLCC tower.", afternoon: "Lunch at Alibaba and 41 Dishes. 11:00 AM Early Check-in. Rest & freshen up.", evening: "Visit Petronas Twin Towers & KLCC Park. Dinner at the authentic South Indian spot in front of Ramada Encore Chinatown." },
+            { day: 3, date: "Sunday, July 20", city: "KL to Langkawi", theme: "Heritage & Flight", morning: "06:00 AM Batu Caves expedition (Rainbow Stairs). Return for local breakfast.", afternoon: "12:00 PM Leave for KUL Airport. 05:45 PM Flight to Langkawi.", evening: "07:15 PM Arrive LGK. Check-in Goldsands Hotel, Kuah. Dinner at Little India." },
+            { day: 4, date: "Monday, July 21", city: "Langkawi", theme: "Birthday Voyage 🎉", morning: "Quiet morning in Kuah, visit Maha Tower, buy from 24*7, Relaxed birthday lunch at Little India.", afternoon: "Private Mangrove Safari in Kilim Geoforest Park & Eagle Point. Celebrating amidst nature.", evening: "Special Birthday Dinner at Little India, Kuah." },
+            { day: 5, date: "Tuesday, July 22", city: "Langkawi to KL", theme: "Skyline Retreat", morning: "10:00 AM Check-out Goldsands Hotel, Kuah & Breakfast. 11:30 AM Langkawi Airport transit.", afternoon: "02:00 PM Flight to KL. 04:00 PM Arrival. Check-in at Upper View Regalia.", evening: "Dinner at Alibaba & 41 Dishes. Midnight swim in the infinity rooftop pool in Upper View Regalia." },
+            { day: 6, date: "Wednesday, July 23", city: "KL to Kolkata", theme: "Oceanic Finale", morning: "08:00 AM Check-out. Visit KLCC Aquaria. Lunch at Alibaba.", afternoon: "02:30 PM Bag collection from Upper View Regalia. 04:30 PM Reach KUL Airport.", evening: "09:00 PM Flight: KUL → CCU. 11:30 PM Arrival in Kolkata." },
+            { day: 7, date: "Thursday, July 24", city: "Kolkata", theme: "The Buffer Day", morning: "Deep rest after international travel. Leisurely morning in the city.", afternoon: "Explore local spots, meet friends, and savor Kolkata street food.", evening: "11:55 PM Flight: CCU → DEL. Final leg of the journey." },
+            { day: 8, date: "Friday, July 25", city: "Delhi", theme: "Homecoming", morning: "02:10 AM Arrive Delhi. Return home for well-deserved rest.", afternoon: "Unpacking and recovery day. Quiet family lunch.", evening: "08:00 PM Resume work. Back to reality with fresh memories." }
+        ];
+
+        const directoryData = {
+            hotels: [
+                { name: "Ramada Encore Chinatown", location: "Kuala Lumpur", feature: "Body Spa & City Views" },
+                { name: "Goldsands Hotel", location: "Kuah, Langkawi", feature: "Seafront Proximity" },
+                { name: "Upper View Regalia", location: "Kuala Lumpur", feature: "Infinity Rooftop Pool" }
+            ],
+            restaurants: [
+                { name: "Alibaba and 41 Dishes", location: "KL", cuisine: "Middle Eastern / Fusion" },
+                { name: "Little India", location: "Langkawi (Kuah)", cuisine: "South Indian / Birthday Dinner" },
+                { name: "Adyar Ananda Bhavan", location: "Kuala Lumpur", cuisine: "South Indian Vegetarian" },
+                { name: "South Indian Spot", location: "Chinatown KL", cuisine: "Authentic Local Indian" }
+            ]
+        };
+
+        const categories = [
+            { category: "Flights", cost: "₹35,000", detail: "DEL-CCU-KUL-LGK-KUL-CCU-DEL", icon: "plane" },
+            { category: "Hotels", cost: "₹12,000", detail: "LGK (6.8k) | Regalia (2.4k) | Ramada (2k)", icon: "map-pin" },
+            { category: "Currency Exchanged", cost: "₹40,000", detail: "1,950 MYR (Orient Exchange)", icon: "credit-card" },
+            { category: "Misc & Insurance", cost: "₹3,600", detail: "Policy + Essentials", icon: "info" },
+        ];
+
+        const logEntries = [
+            { item: "SIM Card", cost: "18 MYR", sub: "Purchased at KUL airport" },
+            { item: "Food & Dining", cost: "530 MYR", sub: "Adyar Ananda Bhavan, Alibaba, Little India, Plane Food, 24*7, Juice" },
+            { item: "Transport (Cabs & Grab)", cost: "330 MYR", sub: "Airport transfers, Ramada, LGK Cabs" },
+            { item: "Private Mangrove Tour", cost: "200 MYR", sub: "Kilim Geoforest Park Safari" },
+            { item: "Shopping & Souvenirs", cost: "350 MYR", sub: "Lucky, Magnet, Duty-Free" },
+            { item: "Full Body Spa", cost: "100 MYR", sub: "Wellness at Ramada Encore" },
+            { item: "Birthday Dinner", cost: "100 MYR", sub: "Celebration meal at Little India" },
+            { item: "Batu Caves & Misc", cost: "85 MYR", sub: "Entry, Snacks, Incidentals" },
+            { item: "Tourism Tax / Fees", cost: "37 MYR", sub: "Hotel service fees & taxes" },
+        ];
+
+        let activeDayIdx = 0;
+
+        function renderDayContent(idx) {
+            const day = itineraryData[idx];
+            const container = document.getElementById('itinerary-panel');
+            
+            container.innerHTML = `
+                <div>
+                  <div class="flex justify-between items-start mb-16 pb-8 border-b border-white/5">
+                    <div>
+                      <h3 class="text-5xl md:text-6xl mb-3 italic">${day.theme}</h3>
+                      <div class="flex items-center gap-3 text-amber-400 text-xs font-bold uppercase tracking-widest">
+                        <i data-lucide="calendar" size="14"></i>
+                        ${day.date}
+                      </div>
+                    </div>
+                    <div class="h-14 w-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xl font-bold italic text-amber-400">
+                      ${day.day}
+                    </div>
+                  </div>
+
+                  <div class="grid md:grid-cols-1 gap-12">
+                    <div class="flex gap-6 items-start group">
+                        <div class="mt-1 p-2.5 rounded-xl bg-white/5 border border-white/5 text-amber-400 group-hover:bg-amber-400 group-hover:text-black transition-all">
+                            <i data-lucide="sun" size="18"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 group-hover:text-amber-400/80 transition-colors">Morning</span>
+                            <p class="text-[#cbd5e1] text-base leading-relaxed font-normal max-w-xl">${day.morning}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start group">
+                        <div class="mt-1 p-2.5 rounded-xl bg-white/5 border border-white/5 text-amber-400 group-hover:bg-amber-400 group-hover:text-black transition-all">
+                            <i data-lucide="coffee" size="18"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 group-hover:text-amber-400/80 transition-colors">Midday</span>
+                            <p class="text-[#cbd5e1] text-base leading-relaxed font-normal max-w-xl">${day.afternoon}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start group">
+                        <div class="mt-1 p-2.5 rounded-xl bg-white/5 border border-white/5 text-amber-400 group-hover:bg-amber-400 group-hover:text-black transition-all">
+                            <i data-lucide="moon" size="18"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 group-hover:text-amber-400/80 transition-colors">Evening</span>
+                            <p class="text-[#cbd5e1] text-base leading-relaxed font-normal max-w-xl">${day.evening}</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-white/5 flex items-center justify-between">
+                   <div class="flex items-center gap-3 text-slate-400 text-xs font-bold tracking-[0.2em] uppercase">
+                     <i data-lucide="map-pin" size="14" class="text-amber-400"></i>
+                     ${day.city}
+                   </div>
+                   ${day.day === 4 ? `
+                     <div class="flex items-center gap-2 bg-pink-500/10 text-pink-400 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border border-pink-500/20">
+                       <i data-lucide="heart" size="12" fill="currentColor"></i> Birthday Event
+                     </div>
+                   ` : ''}
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function setupNav() {
+            const container = document.getElementById('day-nav-container');
+            itineraryData.forEach((item, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `day-button w-full text-left p-5 rounded-2xl transition-all flex items-center justify-between border bg-white/5 border-white/5 text-slate-400 hover:bg-white/10 ${idx === activeDayIdx ? 'active' : ''}`;
+                btn.innerHTML = `
+                    <div>
+                      <span class="day-label text-[10px] font-bold uppercase tracking-widest block mb-1 text-amber-400/70">Day 0${item.day}</span>
+                      <span class="font-bold text-base block">${item.city}</span>
+                    </div>
+                    <i data-lucide="${idx === activeDayIdx ? 'chevron-down' : 'calendar'}" size="${idx === activeDayIdx ? 18 : 14}" class="${idx === activeDayIdx ? '-rotate-90' : 'opacity-20'}"></i>
+                `;
+                btn.onclick = () => {
+                    document.querySelectorAll('.day-button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeDayIdx = idx;
+                    renderDayContent(idx);
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function populateStaticSections() {
+            // Hotels
+            const hotelsContainer = document.getElementById('hotels-container');
+            directoryData.hotels.forEach(h => {
+                hotelsContainer.innerHTML += `
+                    <div class="group">
+                      <h4 class="text-xl font-semibold text-white group-hover:text-amber-400 transition-colors mb-1">${h.name}</h4>
+                      <div class="flex justify-between items-center text-xs">
+                        <span class="text-slate-400 font-medium uppercase tracking-widest">${h.location}</span>
+                        <span class="text-amber-400/60 italic">${h.feature}</span>
+                      </div>
+                    </div>
+                `;
+            });
+
+            // Restaurants
+            const restaurantsContainer = document.getElementById('restaurants-container');
+            directoryData.restaurants.forEach(r => {
+                restaurantsContainer.innerHTML += `
+                    <div class="group">
+                      <h4 class="text-xl font-semibold text-white group-hover:text-amber-400 transition-colors mb-1">${r.name}</h4>
+                      <div class="flex justify-between items-center text-xs">
+                        <span class="text-slate-400 font-medium uppercase tracking-widest">${r.location}</span>
+                        <span class="text-amber-400/60 italic">${r.cuisine}</span>
+                      </div>
+                    </div>
+                `;
+            });
+
+            // Ledger
+            const catsContainer = document.getElementById('categories-container');
+            categories.forEach(c => {
+                catsContainer.innerHTML += `
+                    <div class="group pb-2">
+                       <div class="flex justify-between items-center mb-2">
+                         <div class="flex items-center gap-4">
+                            <div class="p-2 rounded-lg bg-white/5 text-amber-400"><i data-lucide="${c.icon}" size="18"></i></div>
+                            <span class="text-slate-200 uppercase tracking-widest text-xs font-bold">${c.category}</span>
+                         </div>
+                         <span class="text-xl font-light text-amber-200 italic">${c.cost}</span>
+                       </div>
+                       <p class="text-[11px] text-slate-500 ml-14 font-medium italic">${c.detail}</p>
+                       <div class="h-[1px] w-full bg-gradient-to-r from-white/10 to-transparent mt-4"></div>
+                    </div>
+                `;
+            });
+
+            // Log
+            const logContainer = document.getElementById('log-entries-container');
+            logEntries.forEach(l => {
+                logContainer.innerHTML += `
+                    <div class="group border-b border-white/[0.02] pb-4">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-slate-100 font-semibold group-hover:text-amber-400 transition-colors text-sm">${l.item}</span>
+                            <span class="text-amber-100/80 font-mono text-sm">${l.cost}</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 font-medium italic leading-relaxed">${l.sub}</p>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = () => {
+            setupNav();
+            renderDayContent(0);
+            populateStaticSections();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
